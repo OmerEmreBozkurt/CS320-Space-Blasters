@@ -1,8 +1,8 @@
 package com.github.OmerEmreBozkurt.lwjgl3;
-
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 import com.github.OmerEmreBozkurt.Core;
+
 
 /** Launches the desktop (LWJGL3) application. */
 public class Lwjgl3Launcher {
