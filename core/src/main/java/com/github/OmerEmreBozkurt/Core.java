@@ -11,17 +11,20 @@ import com.badlogic.gdx.utils.ScreenUtils;
 public class Core extends ApplicationAdapter {
     private SpriteBatch batch;
     private Texture image;
+    private Platform platform;
 
     @Override
     public void create() {
         batch = new SpriteBatch();
         image = new Texture("libgdx.png");
+        platform = new Platform();
     }
 
     @Override
     public void render() {
         ScreenUtils.clear(0.15f, 0.15f, 0.2f, 1f);
         batch.begin();
+        platform.Draw(batch);
         batch.draw(image, 140, 210);
         batch.end();
     }
@@ -33,6 +36,5 @@ public class Core extends ApplicationAdapter {
     }
 
     public static void main(String[] args) {
-
     }
 }

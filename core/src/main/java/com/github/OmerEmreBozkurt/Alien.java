@@ -23,15 +23,16 @@ public class Alien {
     }
 
     Texture texturePicker(){
-        if (power_up.getPowerUpType() == 1) {
+        if (power_up == null ) {
+            return new Texture("BaseAlien.png");
+        } else if (power_up.getPowerUpType() == 1) {
             return new Texture("BaseAlien-PowerUp1.png");
         } else if (power_up.getPowerUpType() == 2) {
             return new Texture("BaseAlien-PowerUp2.png");
         } else if (power_up.getPowerUpType() == 3) {
             return new Texture("BaseAlien-PowerUp3.png");
-        } else {
-            return new Texture("BaseAlien.png");
         }
+        return new Texture("Ball.png");
     }
 
     public void take_damage(){
