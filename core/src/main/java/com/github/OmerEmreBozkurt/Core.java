@@ -1,38 +1,39 @@
 package com.github.OmerEmreBozkurt;
 
-import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.ApplicationListener;
+
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.badlogic.gdx.*;
+
 
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
-public class Core extends ApplicationAdapter {
-    private SpriteBatch batch;
-    private Texture image;
+public class Core  {
+    public static void main(String[] arg) {
+        Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration() {};
 
-    @Override
-    public void create() {
-        batch = new SpriteBatch();
-        image = new Texture("libgdx.png");
-    }
+        config.setWindowedMode(800, 800);
 
-    @Override
-    public void render() {
-        ScreenUtils.clear(0.15f, 0.15f, 0.2f, 1f);
-        batch.begin();
-        batch.draw(image, 140, 210);
-        batch.end();
-    }
+        // Directly set Game_ScreenUI as the screen to be shown
+        new Lwjgl3Application(new Game_ScreenUI() {
+            @Override
+            public void create() {
+                super.create();
+            }
 
-    @Override
-    public void dispose() {
-        batch.dispose();
-        image.dispose();
-    }
+            @Override
+            public void render() {
+                super.render();
+            }
 
-    public static void main(String[] args) {
-
+            @Override
+            public void dispose() {
+                super.dispose();
+            }
+        }, config);
     }
 }

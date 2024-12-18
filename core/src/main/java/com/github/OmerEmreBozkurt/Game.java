@@ -1,6 +1,9 @@
 package com.github.OmerEmreBozkurt;
 
-public class Game {
+import com.badlogic.gdx.Application;
+import com.badlogic.gdx.ApplicationAdapter;
+
+public class Game extends ApplicationAdapter {
     private int score, ballCount, level;
     private Power_Up activePowerUp;
 

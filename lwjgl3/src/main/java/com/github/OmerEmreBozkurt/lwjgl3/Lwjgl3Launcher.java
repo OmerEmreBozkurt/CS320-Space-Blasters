@@ -1,5 +1,6 @@
 package com.github.OmerEmreBozkurt.lwjgl3;
 
+import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 import com.github.OmerEmreBozkurt.Core;
@@ -12,7 +13,7 @@ public class Lwjgl3Launcher {
     }
 
     private static Lwjgl3Application createApplication() {
-        return new Lwjgl3Application(new Core(), getDefaultConfiguration());
+        return new Lwjgl3Application((ApplicationListener) new Core(), getDefaultConfiguration());
     }
 
     private static Lwjgl3ApplicationConfiguration getDefaultConfiguration() {
