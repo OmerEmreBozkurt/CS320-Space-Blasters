@@ -14,7 +14,7 @@ public class Projectile {
 
 
     public Projectile() {
-        sprite.setScale(4);
+        sprite.setScale(2);
         this.position = new Vector2(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight());
     }
 

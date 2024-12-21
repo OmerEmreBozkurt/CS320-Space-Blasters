@@ -4,6 +4,7 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 
@@ -12,12 +13,20 @@ public class Core extends ApplicationAdapter {
     private SpriteBatch batch;
     private Platform platform;
     private Projectile ball;
+    private int score;
+    private BitmapFont font;
 
     @Override
     public void create() {
+        score = 0;
         batch = new SpriteBatch();
         platform = new Platform();
         ball = new Projectile();
+
+        font = new BitmapFont();
+        font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        font.getData().setScale(2.0F);
+
     }
 
     @Override
@@ -26,7 +35,9 @@ public class Core extends ApplicationAdapter {
         batch.begin();
         platform.Draw(batch);
         ball.Draw(batch);
+        font.draw(batch, "Score: " + score, 10, Gdx.graphics.getHeight() - 10);
         batch.end();
+
     }
 
     @Override

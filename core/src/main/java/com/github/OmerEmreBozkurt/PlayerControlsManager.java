@@ -29,14 +29,14 @@ public class PlayerControlsManager {
         }
     }
 
-    public void handleGameState() {
-        if (game.getBallCount() <= 0) {
-            game.stop(); // Stop the game logic
-        }
-
-        Power_up activePowerUp = game.getActivePowerUp();
-        if (activePowerUp != null && activePowerUp.isActive() && activePowerUp.getPowerUpType() == 1) {
-            activePowerUp.live_giver(game);
-        }
-    }
+//    public void handleGameState() {
+//        if (game.getBallCount() <= 0) {
+//            game.stop(); // Stop the game logic
+//        }
+//
+//        Power_up activePowerUp = game.getActivePowerUp();
+//        if (activePowerUp != null && activePowerUp.isActive() && activePowerUp.getPowerUpType() == 1) {
+//            activePowerUp.live_giver(game);
+//        }
+   // }
 }
