@@ -16,7 +16,11 @@ public class Game {
     }
 
     public void updateScore(int points) {
-        this.score += points;
+        if(activePowerUp != null && activePowerUp.isActive() && activePowerUp == 3){
+            this.score = score + (2*points);
+        } else {
+            this.score += points;
+        }
     }
 
     public int getBallCount() {
@@ -25,6 +29,10 @@ public class Game {
 
     public void decrementBallCount() {
         ballCount--;
+        if (this.activePowerUp != null) {
+            this.activePowerUp.deactivate();
+            this.activePowerUp = null;
+        };
     }
 
     public void incrementBallCount() {

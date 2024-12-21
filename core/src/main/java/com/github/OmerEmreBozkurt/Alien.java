@@ -36,8 +36,12 @@ public class Alien {
     }
 
     public void take_damage(){
-        life--;
-        if (life == 0) {
+        int damage = 1; // Default damage
+        if (power_up != null && power_up.isActive() && power_up.getPowerUpType() == 2) {
+            damage = 2; // double the damage
+        }
+        life -= damage;
+        if (life <= 0) {
             this.death();
         }
     }

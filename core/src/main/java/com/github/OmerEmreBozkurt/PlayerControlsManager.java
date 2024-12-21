@@ -31,11 +31,12 @@ public class PlayerControlsManager {
 
     public void handleGameState() {
         if (game.getBallCount() <= 0) {
-            // Pause or stop the game logic
+            game.stop(); // Stop the game logic
         }
 
-        if (game.getActivePowerUp() != null) {
-            // Handle specific power-up behavior
+        Power_up activePowerUp = game.getActivePowerUp();
+        if (activePowerUp != null && activePowerUp.isActive() && activePowerUp.getPowerUpType() == 1) {
+            activePowerUp.live_giver(game);
         }
     }
 }

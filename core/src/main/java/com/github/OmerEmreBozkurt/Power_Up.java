@@ -30,16 +30,4 @@ public class Power_Up {
             game.incrementBallCount(); // Adds an extra ball
         }
     }
-
-    public void amplify_damage() {
-        if (is_active) {
-           // will be implemented later
-        }
-    }
-
-    public void score_multiplier(Game game, int multiplier) {
-        if (is_active) {
-           // will be implemented later
-        }
-    }
 }
