@@ -1,6 +1,8 @@
 package com.github.OmerEmreBozkurt;
 
 public class Power_Up {
+    enum PowerUpType {LiveGiver,AmplifyDamage,ScoreMultiplyier}
+
     private int power_up_type; // 1 = live giver, 2 = amplify damage, 3 = score multiplier
     private boolean is_active;
 
