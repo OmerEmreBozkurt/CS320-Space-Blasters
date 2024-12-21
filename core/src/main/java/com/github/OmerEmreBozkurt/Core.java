@@ -8,6 +8,8 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 
+import java.util.Random;
+
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
 public class Core extends ApplicationAdapter {
     private SpriteBatch batch;
@@ -15,6 +17,7 @@ public class Core extends ApplicationAdapter {
     private Projectile ball;
     private int score;
     private BitmapFont font;
+    Random rand = new Random();
 
     @Override
     public void create() {
@@ -22,7 +25,6 @@ public class Core extends ApplicationAdapter {
         batch = new SpriteBatch();
         platform = new Platform();
         ball = new Projectile();
-
         font = new BitmapFont();
         font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         font.getData().setScale(2.0F);
@@ -35,10 +37,19 @@ public class Core extends ApplicationAdapter {
         batch.begin();
         platform.Draw(batch);
         ball.Draw(batch);
+        if (platform.getSprite().getBoundingRectangle().overlaps(ball.getSprite().getBoundingRectangle())) {
+            System.out.println("ÇARPTI!!!!!");
+            ball.setSpeed(ball.initialSpeed);
+            float testFloat = rand.nextFloat(-300f,300f);
+            System.out.printf(String.valueOf(testFloat));
+            ball.setSpeedY(rand.nextFloat(-300f,300f));
+        }
         font.draw(batch, "Score: " + score, 10, Gdx.graphics.getHeight() - 10);
         batch.end();
 
     }
+
+
 
     @Override
     public void dispose() {

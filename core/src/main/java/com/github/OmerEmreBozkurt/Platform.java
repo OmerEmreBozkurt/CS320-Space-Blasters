@@ -14,7 +14,7 @@ public class Platform {
 
 
     public Platform(){
-        sprite.setScale(4);
+        sprite.setScale(8);
         position = new Vector2(Gdx.graphics.getWidth()/2, sprite.getScaleY()*sprite.getHeight()/2 + 5);
     }
 
@@ -48,5 +48,11 @@ public class Platform {
         this.position.x += -1.5f; // Moving the coordinates of the platform by 1.5 units to the right
     }
 
+    public Sprite getSprite() {
+        return sprite;
+    }
 
+    public void setSprite(Sprite sprite) {
+        this.sprite = sprite;
+    }
 }
