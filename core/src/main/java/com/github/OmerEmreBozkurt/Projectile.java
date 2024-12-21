@@ -19,7 +19,7 @@ public class Projectile {
     }
 
     public void Update(float deltaTime){
-        position.y -= deltaTime*speed;
+
 
     }
 

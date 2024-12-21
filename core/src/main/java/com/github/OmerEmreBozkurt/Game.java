@@ -16,7 +16,7 @@ public class Game {
     }
 
     public void updateScore(int points) {
-        if(activePowerUp != null && activePowerUp.isActive() && activePowerUp == 3){
+        if(activePowerUp != null && activePowerUp.isActive() && activePowerUp.getPowerUpType() == 3){
             this.score = score + (2*points);
         } else {
             this.score += points;
