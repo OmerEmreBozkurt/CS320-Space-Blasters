@@ -1,70 +1,65 @@
 package com.github.OmerEmreBozkurt;
 
-
-
-import com.badlogic.gdx.*;
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.graphics.*;
-import com.badlogic.gdx.graphics.g2d.*;
-import com.badlogic.gdx.scenes.scene2d.*;
-import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
+import java.awt.*;
 
-public class StartPage extends ScreenAdapter {
-    private com.badlogic.gdx.Game game;
-    private Stage stage;
+public class StartPage extends Game {
+
     private SpriteBatch batch;
+    private BitmapFont font;
+    private Stage stage;
+    private Sprite sprite;
 
-    public StartPage(Game game) {
-        this.game = game;
+
+
+
+
+
+    public void create(){
         batch = new SpriteBatch();
-        stage = new Stage(new ScreenViewport());
-        Gdx.input.setInputProcessor(stage);
+        font = new BitmapFont();
 
-        Skin skin = new Skin(Gdx.files.internal("../assets/ui/uiskin.json"));
-        Table table = new Table();
-        table.setFillParent(true);
-        stage.addActor(table);
 
-        Label title = new Label("Space Blasters", skin);
-        title.setFontScale(2);
+        font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        font.getData().setScale(2.0F);
 
-        TextButton startButton = new TextButton("Start Game", skin);
-        startButton.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                game.setScreen(new EndPage(game, 100));
-            }
-        });
 
-        TextButton exitButton = new TextButton("Exit Game", skin);
-        exitButton.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                Gdx.app.exit();
-            }
-        });
+        sprite = new Sprite(new Texture("Platform.png"));;
 
-        table.add(title).padBottom(20).row();
-        table.add(startButton).padBottom(10).row();
-        table.add(exitButton);
+
+
     }
+    public void render() {
+        ScreenUtils.clear(0.15f, 0.15f, 0.2f, 1f);
+        batch.begin();
+        font.draw(batch, "SPACE BLASTERS", Gdx.graphics.getWidth() / 2 -140, Gdx.graphics.getHeight() / 2 +25);
+        sprite.setSize(100,20 );
+        sprite.setPosition(Gdx.graphics.getWidth()/2-50 , Gdx.graphics.getHeight()/2-60);
+        sprite.draw(batch);
+        batch.end();
 
-    @Override
-    public void render(float delta) {
-        Gdx.gl.glClearColor(0, 0, 0, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        stage.act(delta);
-        stage.draw();
     }
-
-    @Override
     public void dispose() {
-        stage.dispose();
         batch.dispose();
+        font.dispose();
+
+
     }
 }
-

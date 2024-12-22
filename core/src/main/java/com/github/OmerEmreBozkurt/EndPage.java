@@ -9,13 +9,13 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
-public class EndPage extends ScreenAdapter {
+public class EndPage extends Game {
     private com.badlogic.gdx.Game game;
     private Stage stage;
     private SpriteBatch batch;
     private int score; // Score to display
 
-    public EndPage(Game game, int score) {
+    public EndPage() {
         this.game = game;
         this.score = score;  // Set the score passed from StartPage or game logic
         batch = new SpriteBatch();
@@ -36,7 +36,7 @@ public class EndPage extends ScreenAdapter {
         restartButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                game.setScreen(new StartPage(game));  // Return to StartPage when clicked
+                //game.setScreen((Screen) new StartPage(game));  // Return to StartPage when clicked
             }
         });
 
@@ -59,13 +59,21 @@ public class EndPage extends ScreenAdapter {
         table.add(restartButton).padBottom(10);
     }
 
-    @Override
+
     public void render(float delta) {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        batch.begin();
 
         stage.act(delta);
         stage.draw();
+    }
+
+    @Override
+    public void create() {
+        batch = new SpriteBatch();
+        stage = new Stage(new ScreenViewport());
+
     }
 
     @Override
