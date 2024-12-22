@@ -10,6 +10,7 @@ import com.badlogic.gdx.math.Vector2;
 public class Projectile {
     private Vector2 position;
     private Sprite sprite = new Sprite(new Texture("Ball.png"));
+    private Game game;
     public float initialSpeed = 800;
     private float speed = -initialSpeed;
     private float speedY = 0;
@@ -17,7 +18,7 @@ public class Projectile {
 
     public Projectile() {
         sprite.setScale(2);
-        this.position = new Vector2(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight());
+        this.position = new Vector2(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/3);
     }
 
     public void Update(float deltaTime){
@@ -27,8 +28,10 @@ public class Projectile {
         if (position.x <= 0){this.setSpeedY(-getSpeedY());} // sol duvara çarparsa
         if (position.x >= Gdx.graphics.getWidth()){this.setSpeedY(-getSpeedY());} //Sağ duvara Çarparsa
         if (position.y <= 0){ //Top düştüğünde
-            position.x = Gdx.graphics.getWidth()/2;
+            game.decrementBallCount();
+            position.x = Gdx.graphics.getWidth()/3;
             position.y = Gdx.graphics.getHeight();
+
         }
     }
 
