@@ -25,6 +25,17 @@ public class Core extends ApplicationAdapter {
     private Music backgroundMusic;
 
     Random rand = new Random();
+    int minX_aliens;
+    int minY_aliens;
+    int maxX_aliens;
+    int maxY_aliens;
+    //offset to move aliens
+    Vector2 offset_aliens;
+    int direction_aliens=1;
+    float speed_aliens=300;
+    int NumWidth_aliens=11;
+    int NumHeight_aliens=5;
+    int spacing_aliens=40;
 
 
     @Override
@@ -48,6 +59,7 @@ public class Core extends ApplicationAdapter {
 
     @Override
     public void render() {
+        float deltaTime = Gdx.graphics.getDeltaTime();
         ScreenUtils.clear(0.15f, 0.15f, 0.2f, 1f);
         batch.begin();
         platform.Draw(batch);
@@ -64,9 +76,27 @@ public class Core extends ApplicationAdapter {
                 }
             }
         }
+        minX_aliens = 10000;
+        minY_aliens = 10000;
+        maxX_aliens = 0;
+        maxY_aliens = 0;
+        System.out.println("aa");
+        for(int i=0;i<aliens.length;i++)
+        {
+            System.out.println("bb");
+            int IndexX = i%NumWidth_aliens;
+            int IndexY = i%NumHeight_aliens;
+            if(IndexX>maxX_aliens)maxX_aliens = IndexX;
+            if(IndexX<minX_aliens)minX_aliens = IndexX;
+            if(IndexY>maxY_aliens)maxY_aliens = IndexY;
+            if(IndexY<minY_aliens)minY_aliens = IndexY;
+
+        }
+        offset_aliens.x+=direction_aliens*deltaTime*speed_aliens;
 
         for (int i = 0; i < aliens.length; i++) {
             if (aliens[i] != null && aliens[i].alive) {
+                aliens[i].position = new Vector2(aliens[i].position_initial.x+offset_aliens.x,aliens[i].position_initial.y+offset_aliens.y);
                 aliens[i].Draw(batch);
             }
         }

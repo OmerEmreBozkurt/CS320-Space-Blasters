@@ -16,6 +16,7 @@ public class Alien {
     }
 
     public Vector2 position;
+    public Vector2 position_initial;
     public Sprite sprite;
     int life;
     Game game;
@@ -44,6 +45,7 @@ public class Alien {
         this.points = (type.ordinal()+1)*10;
         this.touched = false;
         this.game = game;
+        this.position_initial = position;
     }
 
     public void Draw(SpriteBatch batch){
