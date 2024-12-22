@@ -8,6 +8,9 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
+
 
 import java.util.Random;
 
@@ -19,6 +22,7 @@ public class Core extends ApplicationAdapter {
     private Game game;
     private BitmapFont font;
     Alien[] aliens;
+    private Music backgroundMusic;
 
     Random rand = new Random();
 
@@ -34,6 +38,10 @@ public class Core extends ApplicationAdapter {
         font.getData().setScale(2.0F);
 
         aliens= Alien.alienSpawner(5,6);
+        backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("thememusic.mp3"));
+        backgroundMusic.setLooping(true); // Loop the music
+        backgroundMusic.setVolume(0.5f); // Adjust volume (0.0 to 1.0)
+        backgroundMusic.play(); // Start playing the music
     }
 
 
@@ -79,6 +87,10 @@ public class Core extends ApplicationAdapter {
     @Override
     public void dispose() {
         batch.dispose();
+        font.dispose();
+        if (backgroundMusic != null) {
+            backgroundMusic.dispose(); // Dispose the music to avoid memory leaks
+        }
     }
 
     public static void main(String[] args) {
