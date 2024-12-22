@@ -45,9 +45,16 @@ public class Core extends ApplicationAdapter {
         platform.Draw(batch);
         ball.Draw(batch);
         for (int i = 0; i < aliens.length; i++) {
-            if (aliens[i] != null && aliens[i].alive && ball.getSprite().getBoundingRectangle().overlaps(aliens[i].sprite.getBoundingRectangle())) {
-                aliens[i].take_damage();  // Mark the alien as dead
-                game.updateScore(aliens[i].getPoints());  // Update score based on alien's points
+            if (aliens[i] != null && aliens[i].alive) {
+                if (ball.getSprite().getBoundingRectangle().overlaps(aliens[i].sprite.getBoundingRectangle())) {
+                    if (!aliens[i].isTouched()) {
+                        aliens[i].take_damage(); // Decrement life
+                        game.updateScore(aliens[i].getPoints()); // Update score
+                        aliens[i].setTouched(true); // Mark as touched
+                    }
+                } else {
+                    aliens[i].resetTouched(); // Reset touched when ball leaves
+                }
             }
         }
 

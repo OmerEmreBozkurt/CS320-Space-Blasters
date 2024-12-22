@@ -32,7 +32,6 @@ public class Projectile {
             game.decrementBallCount();
             position.x = Gdx.graphics.getWidth()/3;
             position.y = Gdx.graphics.getHeight();
-
         }
     }
 

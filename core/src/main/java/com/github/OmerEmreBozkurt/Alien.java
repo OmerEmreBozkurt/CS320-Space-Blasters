@@ -18,6 +18,7 @@ public class Alien {
     public Vector2 position;
     public Sprite sprite;
     int life;
+    private boolean touched;
 
     public int getPoints() {
         return points;
@@ -40,6 +41,7 @@ public class Alien {
         this.power_up = null;
         this.sprite.setScale(3.4f);
         this.points = (type.ordinal()+1)*10;
+        this.touched = false;
     }
 
     public void Draw(SpriteBatch batch){
@@ -109,4 +111,16 @@ public class Alien {
         }
         return aliens;
     }
+
+        public boolean isTouched() {
+            return touched;
+        }
+
+        public void setTouched(boolean touched) {
+            this.touched = touched;
+        }
+
+        public void resetTouched() {
+            this.touched = false;
+        }
 }
