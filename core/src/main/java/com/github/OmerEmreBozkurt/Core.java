@@ -33,24 +33,7 @@ public class Core extends ApplicationAdapter {
         font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         font.getData().setScale(2.0F);
 
-        int i = 0;
-        Random rand = new Random();
-
-        // Example values; replace these with actual values as needed
-        int num_height_aliens = 5;
-        int num_width_aliens = 6;
-
-        aliens = new Alien[num_height_aliens * num_width_aliens];
-
-        for (int y = 0; y < num_height_aliens; y++) { // Fixed loop to count upwards
-            for (int x = 0; x < num_width_aliens; x++) { // Fixed loop to count upwards
-                int randomInt = rand.nextInt(Alien.AlienType.values().length); // Random AlienType
-                Alien.AlienType randomType = Alien.AlienType.values()[randomInt];
-                aliens[i] = new Alien(randomType);
-                aliens[i].setPosition(new Vector2(183 + 80*x, 350 + 80*y));
-                i++;
-            }
-        }
+        aliens= Alien.alienSpawner(5,6);
     }
 
 
@@ -85,8 +68,6 @@ public class Core extends ApplicationAdapter {
         batch.end();
 
     }
-
-
 
     @Override
     public void dispose() {
