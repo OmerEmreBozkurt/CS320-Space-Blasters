@@ -16,6 +16,7 @@ public class Projectile {
     private float speedX = 0;
 
 
+
     public Projectile(Game game) {
         this.game = game;
         sprite.setScale(2);
