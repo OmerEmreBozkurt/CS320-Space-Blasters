@@ -40,6 +40,8 @@ public class StartPage extends Game {
     }
 
 
+
+
     public void create(){
         batch = new SpriteBatch();
         font = new BitmapFont();
