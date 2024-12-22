@@ -5,8 +5,8 @@ import com.badlogic.gdx.graphics.Texture;
 public class Easy_Alien extends Alien {
     public Easy_Alien() {
         super(AlienType.Easy);
-        sprite.setTexture(texturePicker());
         life = 1;
+        sprite.setTexture(texturePicker());
     }
 
     public int death(){
@@ -24,6 +24,6 @@ public class Easy_Alien extends Alien {
         } else if (power_up.getPowerUpType() == 3) {
             return new Texture("Tier1Pow3.png");
         }
-        return new Texture("libgdx.png");
+        return new Texture("BaseAlien.png");
     }
 }

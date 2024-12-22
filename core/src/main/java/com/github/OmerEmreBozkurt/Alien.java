@@ -69,6 +69,7 @@ public class Alien {
             damage = 2; // double the damage
         }
         life -= damage;
+        sprite.setTexture(texturePicker());
         if (life <= 0) {
             this.death();
         }
