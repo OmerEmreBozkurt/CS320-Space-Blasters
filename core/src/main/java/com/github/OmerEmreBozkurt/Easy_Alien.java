@@ -11,8 +11,20 @@ public class Easy_Alien extends Alien {
 
     public int death(){
         alive = false;
-        game.updateScore(points);
-        return 50;
+        if(power_up != null && power_up.isActive() && power_up.getPowerUpType() == 3){
+            game.updateScore(points*2); // Score Multiplier Power-Up
+            power_up.deactivate();
+            System.out.println("You are doubling your score!!");
+        } else{
+            game.updateScore(points);
+        }
+
+        if(power_up != null && power_up.isActive() && power_up.getPowerUpType() == 1){
+            game.incrementBallCount(); // Life Giver Power_Up
+            power_up.deactivate();
+            System.out.println("Lucky you!! You have an extra ball!");
+        }
+        return 10;
     }
 
     Texture texturePicker(){

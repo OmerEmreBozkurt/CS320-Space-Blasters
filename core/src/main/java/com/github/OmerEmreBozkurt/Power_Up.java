@@ -18,11 +18,6 @@ public class Power_Up {
     public int getPowerUpType() {
         return power_up_type;
     }
-
-    public boolean isActive() {
-        return is_active;
-    }
-
     public void activate() {
         is_active = true;
     }
@@ -31,9 +26,9 @@ public class Power_Up {
         is_active = false;
     }
 
-    public void live_giver(Game game) {
-        if (is_active) {
-            game.incrementBallCount(); // Adds an extra ball
-        }
+    public boolean isActive() {
+        return is_active;
     }
+
+
 }
