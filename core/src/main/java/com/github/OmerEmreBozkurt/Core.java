@@ -44,7 +44,7 @@ public class Core extends ApplicationAdapter implements Screen {
         font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         font.getData().setScale(2.0F);
 
-        aliens= Alien.alienSpawner(5,6, game);
+        resetAliens();
         backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("thememusic.mp3"));
         backgroundMusic.setLooping(true); // Loop the music
         backgroundMusic.setVolume(0.5f); // Adjust volume (0.0 to 1.0)
@@ -66,6 +66,7 @@ public class Core extends ApplicationAdapter implements Screen {
         batch.begin();
         platform.Draw(batch);
         ball.Draw(batch);
+        game.Update(deltaTime);
         for (int i = 0; i < aliens.length; i++) {
             if (aliens[i] != null && aliens[i].alive) {
                 if (ball.getSprite().getBoundingRectangle().overlaps(aliens[i].sprite.getBoundingRectangle())) {//TOP UZAYLIYA ÇARPARSA
@@ -94,6 +95,11 @@ public class Core extends ApplicationAdapter implements Screen {
             }
         }
 
+        if (!aliveAlienChecker(aliens)){
+            game.levelUp();
+            resetAliens();
+        }
+
 
         if (platform.getSprite().getBoundingRectangle().overlaps(ball.getSprite().getBoundingRectangle())) { //TOP PLAYFORMA ÇARPARSA
             ball.setSpeedY(-(ball.initialSpeed));
@@ -105,6 +111,21 @@ public class Core extends ApplicationAdapter implements Screen {
         font.draw(batch, "Balls: " + game.getBallCount(), 10, Gdx.graphics.getHeight() - 40);
         batch.end();
 
+    }
+
+    public boolean aliveAlienChecker(Alien[] aliens) {
+        boolean anyAlive = false;
+        for (Alien alien : aliens) {
+            if (alien != null && alien.alive) {
+                anyAlive = true;
+                break;
+            }
+        }
+        return anyAlive;
+    }
+
+    public void resetAliens() {
+        aliens= Alien.alienSpawner(5,6, game);
     }
 
     public static Game getGame() {

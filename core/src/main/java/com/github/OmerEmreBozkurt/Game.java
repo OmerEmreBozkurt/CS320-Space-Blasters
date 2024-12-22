@@ -2,7 +2,6 @@ package com.github.OmerEmreBozkurt;
 
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 
 public class Game  {
     private int score, ballCount, level;
@@ -15,7 +14,6 @@ public class Game  {
         this.activePowerUp = null;
         this.level = 1;
         this.running = true;
-
     }
 
 //    public int getTopScore() {return topScore;}
@@ -27,6 +25,10 @@ public class Game  {
 //    }
 
 
+
+    public void Update(float deltaTime){
+
+    }
 
     public int getScore() {
         return score;
@@ -54,6 +56,7 @@ public class Game  {
     public void endGame() {
         running = false;
         Gdx.app.exit();
+
     }
 
     public void incrementBallCount() {
@@ -82,5 +85,4 @@ public class Game  {
             this.activePowerUp.activate();
         }
     }
-
 }
