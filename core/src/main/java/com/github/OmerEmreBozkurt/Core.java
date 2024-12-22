@@ -69,19 +69,17 @@ public class Core extends ApplicationAdapter {
         for (int i = 0; i < aliens.length; i++) {
             if (aliens[i] != null && aliens[i].alive) {
                 aliens[i].position.x += speed_aliens*direction_aliens;
-                aliens[i].position.y -= 0.02f;
+                aliens[i].position.y -= 0.03f;
                 aliens[i].Draw(batch);
+            }
+            if(aliens[i].position.x >= Gdx.graphics.getWidth() - aliens[i].sprite.getWidth()/2 - 100) {
+                direction_aliens = -1;
+            }
+            if(aliens[i].position.x <= -(aliens[i].sprite.getWidth()/2) + 100) {
+                direction_aliens = 1;
             }
         }
 
-        if(aliens[5].position.x >= Gdx.graphics.getWidth() - aliens[5].sprite.getWidth()/2)
-        {
-            direction_aliens = -1;
-        }
-        if(aliens[0].position.x <= -(aliens[0].sprite.getWidth()/2))
-        {
-            direction_aliens = 1;
-        }
 
         if (platform.getSprite().getBoundingRectangle().overlaps(ball.getSprite().getBoundingRectangle())) { //TOP PLAYFORMA ÇARPARSA
             ball.setSpeedY(-(ball.initialSpeed));
