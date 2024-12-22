@@ -25,6 +25,10 @@ public class Core extends ApplicationAdapter implements Screen {
     Alien[] aliens;
     private Music backgroundMusic;
 
+    private Music thudSound;
+
+    private Music deathSound;
+
     Random rand = new Random();
     int direction_aliens=1;
     float speed_aliens=0.5f;
@@ -44,8 +48,15 @@ public class Core extends ApplicationAdapter implements Screen {
         backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("thememusic.mp3"));
         backgroundMusic.setLooping(true); // Loop the music
         backgroundMusic.setVolume(0.5f); // Adjust volume (0.0 to 1.0)
-        backgroundMusic.play();// Start playing the music
+        backgroundMusic.play(); // Start playing the music
+
+        thudSound = Gdx.audio.newMusic(Gdx.files.internal("thudsound.mp3"));
+        thudSound.setVolume(0.1F);
+
+        deathSound = Gdx.audio.newMusic(Gdx.files.internal("alienDeath.mp3"));
+        deathSound.setVolume(0.1F);
     }
+
 
 
     @Override
@@ -59,6 +70,7 @@ public class Core extends ApplicationAdapter implements Screen {
             if (aliens[i] != null && aliens[i].alive) {
                 if (ball.getSprite().getBoundingRectangle().overlaps(aliens[i].sprite.getBoundingRectangle())) {//TOP UZAYLIYA ÇARPARSA
                     if (!aliens[i].isTouched()) {
+                        deathSound.play();
                         aliens[i].take_damage(); // Decrement life
                         aliens[i].setTouched(true); // Mark as touched
                     }
