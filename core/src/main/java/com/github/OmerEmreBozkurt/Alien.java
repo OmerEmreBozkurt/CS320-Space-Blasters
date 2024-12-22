@@ -90,31 +90,44 @@ public class Alien {
         int i = 0;
         Alien[] aliens = new Alien[num_height_aliens * num_width_aliens];
 
-        for (int y = 0; y < num_height_aliens; y++) { // Fixed loop to count upwards
-            for (int x = 0; x < num_width_aliens; x++) { // Fixed loop to count upwards
-                int randomInt = rand.nextInt(Alien.AlienType.values().length); // Random AlienType
+        for (int y = 0; y < num_height_aliens; y++) {
+            for (int x = 0; x < num_width_aliens; x++) {
+                int randomInt = rand.nextInt(Alien.AlienType.values().length);
                 Alien.AlienType randomType = Alien.AlienType.values()[randomInt];
-                System.out.println(randomType);
+                Alien alien = null;
+
+                // Instantiate aliens
                 switch (randomType) {
                     case Easy:
-                        aliens[i] = new Easy_Alien(game);
+                        alien = new Easy_Alien(game);
                         break;
                     case Medium:
-                        aliens[i] = new Medium_Alien(game);
+                        alien = new Medium_Alien(game);
                         break;
                     case Hard:
-                        aliens[i] = new Hard_Alien(game);
+                        alien = new Hard_Alien(game);
                         break;
                     case ExtraHard:
-                        aliens[i] = new ExtraHard_Alien(game);
+                        alien = new ExtraHard_Alien(game);
                         break;
                 }
-                aliens[i].setPosition(new Vector2(183 + 80*x, 350 + 80*y));
-                i++;
+
+                // Assign random power-up with a 50% chance
+                if (alien != null && rand.nextBoolean()) {
+                    Power_Up powerUp = new Power_Up(rand.nextInt(Power_Up.PowerUpType.values().length) + 1);
+                    alien.power_up = powerUp; // Initialize power-up
+                }
+
+                if (alien != null) {
+                    alien.setPosition(new Vector2(183 + 80 * x, 350 + 80 * y));
+                    aliens[i++] = alien;
+                }
             }
         }
         return aliens;
     }
+
+
 
     public boolean isTouched() {
         return touched;
