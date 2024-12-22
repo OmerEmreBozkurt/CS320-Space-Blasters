@@ -18,6 +18,7 @@ public class Alien {
     public Vector2 position;
     public Sprite sprite;
     int life;
+    Game game;
     private boolean touched;
 
     public int getPoints() {
@@ -34,7 +35,7 @@ public class Alien {
         this.power_up = null;
     }
 
-    public Alien(AlienType type) {
+    public Alien(AlienType type, Game game) {
         this.type = type;
         this.texture = texturePicker();
         this.sprite = new Sprite(texture);
@@ -42,6 +43,7 @@ public class Alien {
         this.sprite.setScale(3.4f);
         this.points = (type.ordinal()+1)*10;
         this.touched = false;
+        this.game = game;
     }
 
     public void Draw(SpriteBatch batch){
@@ -79,10 +81,11 @@ public class Alien {
 
     public int death(){
         alive = false;
+        game.updateScore(points); // call game class update points with this.points()
         return 0;
     }
 
-    public static Alien[] alienSpawner(int num_height_aliens, int num_width_aliens) {
+    public static Alien[] alienSpawner(int num_height_aliens, int num_width_aliens, Game game) {
         Random rand = new Random();
         int i = 0;
         Alien[] aliens = new Alien[num_height_aliens * num_width_aliens];
@@ -94,16 +97,16 @@ public class Alien {
                 System.out.println(randomType);
                 switch (randomType) {
                     case Easy:
-                        aliens[i] = new Easy_Alien();
+                        aliens[i] = new Easy_Alien(game);
                         break;
                     case Medium:
-                        aliens[i] = new Medium_Alien();
+                        aliens[i] = new Medium_Alien(game);
                         break;
                     case Hard:
-                        aliens[i] = new Hard_Alien();
+                        aliens[i] = new Hard_Alien(game);
                         break;
                     case ExtraHard:
-                        aliens[i] = new ExtraHard_Alien();
+                        aliens[i] = new ExtraHard_Alien(game);
                         break;
                 }
                 aliens[i].setPosition(new Vector2(183 + 80*x, 350 + 80*y));
@@ -113,15 +116,15 @@ public class Alien {
         return aliens;
     }
 
-        public boolean isTouched() {
-            return touched;
-        }
+    public boolean isTouched() {
+        return touched;
+    }
 
-        public void setTouched(boolean touched) {
-            this.touched = touched;
-        }
+    public void setTouched(boolean touched) {
+        this.touched = touched;
+    }
 
-        public void resetTouched() {
-            this.touched = false;
-        }
+    public void resetTouched() {
+        this.touched = false;
+    }
 }

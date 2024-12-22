@@ -37,7 +37,7 @@ public class Core extends ApplicationAdapter {
         font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         font.getData().setScale(2.0F);
 
-        aliens= Alien.alienSpawner(5,6);
+        aliens= Alien.alienSpawner(5,6, game);
         backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("thememusic.mp3"));
         backgroundMusic.setLooping(true); // Loop the music
         backgroundMusic.setVolume(0.5f); // Adjust volume (0.0 to 1.0)
@@ -57,7 +57,6 @@ public class Core extends ApplicationAdapter {
                 if (ball.getSprite().getBoundingRectangle().overlaps(aliens[i].sprite.getBoundingRectangle())) {
                     if (!aliens[i].isTouched()) {
                         aliens[i].take_damage(); // Decrement life
-                        game.updateScore(aliens[i].getPoints()); // Update score
                         aliens[i].setTouched(true); // Mark as touched
                     }
                 } else {

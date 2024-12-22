@@ -3,14 +3,15 @@ package com.github.OmerEmreBozkurt;
 import com.badlogic.gdx.graphics.Texture;
 
 public class Easy_Alien extends Alien {
-    public Easy_Alien() {
-        super(AlienType.Easy);
+    public Easy_Alien(Game game) {
+        super(AlienType.Easy, game);
         life = 1;
         sprite.setTexture(texturePicker());
     }
 
     public int death(){
         alive = false;
+        game.updateScore(points);
         return 50;
     }
 
