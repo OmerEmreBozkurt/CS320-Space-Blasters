@@ -2,6 +2,7 @@ package com.github.OmerEmreBozkurt;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -15,11 +16,11 @@ import com.badlogic.gdx.audio.Music;
 import java.util.Random;
 
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
-public class Core extends ApplicationAdapter {
+public class Core extends ApplicationAdapter implements Screen {
     private SpriteBatch batch;
     private Platform platform;
     private Projectile ball;
-    private Game game;
+    private static Game game;
     private BitmapFont font;
     Alien[] aliens;
     private Music backgroundMusic;
@@ -30,6 +31,7 @@ public class Core extends ApplicationAdapter {
 
     @Override
     public void create() {
+
         game = new Game();
         batch = new SpriteBatch();
         platform = new Platform();
@@ -90,6 +92,25 @@ public class Core extends ApplicationAdapter {
         font.draw(batch, "Score: " + game.getScore(), 10, Gdx.graphics.getHeight() - 10);
         font.draw(batch, "Balls: " + game.getBallCount(), 10, Gdx.graphics.getHeight() - 40);
         batch.end();
+
+    }
+
+    public static Game getGame() {
+        return game;
+    }
+
+    @Override
+    public void show() {
+
+    }
+
+    @Override
+    public void render(float delta) {
+
+    }
+
+    @Override
+    public void hide() {
 
     }
 

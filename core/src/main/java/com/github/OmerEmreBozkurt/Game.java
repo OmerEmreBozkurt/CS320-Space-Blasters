@@ -1,5 +1,8 @@
 package com.github.OmerEmreBozkurt;
 
+
+import com.badlogic.gdx.Gdx;
+
 public class Game {
     private int score, ballCount, level;
     private Power_Up activePowerUp;
@@ -31,14 +34,15 @@ public class Game {
             this.activePowerUp.deactivate();
             this.activePowerUp = null;
         }
-        if (ballCount < 0) {
+        if (ballCount == 0) {
             endGame();
         }
     }
 
     public void endGame() {
         running = false;
-        //END GAME
+        Gdx.app.exit();
+
     }
 
     public void incrementBallCount() {

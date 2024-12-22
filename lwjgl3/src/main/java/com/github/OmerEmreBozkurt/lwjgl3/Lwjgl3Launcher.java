@@ -1,23 +1,34 @@
 package com.github.OmerEmreBozkurt.lwjgl3;
-
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 import com.github.OmerEmreBozkurt.Core;
 import com.github.OmerEmreBozkurt.EndPage;
 import com.github.OmerEmreBozkurt.StartPage;
 
+
 /** Launches the desktop (LWJGL3) application. */
 public class Lwjgl3Launcher {
+
     public static void main(String[] args) {
         if (StartupHelper.startNewJvmIfRequired()) return; // This handles macOS support and helps on Windows.
         createApplication();
-    }
+        GameScreen();
+        endScreen();
 
+
+    }
     private static Lwjgl3Application createApplication() {
+        return new Lwjgl3Application(new StartPage(), getDefaultConfiguration());
+    }
+    private static Lwjgl3Application GameScreen() {
         return new Lwjgl3Application(new Core(), getDefaultConfiguration());
     }
+    private static Lwjgl3Application endScreen() {
+        return new Lwjgl3Application(new EndPage(Core.getGame().getScore()), getDefaultConfiguration());
+    }
 
-    private static Lwjgl3ApplicationConfiguration getDefaultConfiguration() {
+
+    public static Lwjgl3ApplicationConfiguration getDefaultConfiguration() {
         Lwjgl3ApplicationConfiguration configuration = new Lwjgl3ApplicationConfiguration();
         configuration.setTitle("SpaceBlaster");
         //// Vsync limits the frames per second to what your hardware can display, and helps eliminate

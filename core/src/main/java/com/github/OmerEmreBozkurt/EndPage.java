@@ -1,89 +1,74 @@
 package com.github.OmerEmreBozkurt;
 
-import com.badlogic.gdx.*;
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.graphics.*;
-import com.badlogic.gdx.graphics.g2d.*;
-import com.badlogic.gdx.scenes.scene2d.*;
-import com.badlogic.gdx.scenes.scene2d.ui.*;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-public class EndPage extends Game {
-    private com.badlogic.gdx.Game game;
-    private Stage stage;
+
+public class EndPage extends Game implements Screen  {
     private SpriteBatch batch;
-    private int score; // Score to display
+    private BitmapFont font;
+    private int finalScore;
 
-    public EndPage() {
-        this.game = game;
-        this.score = score;  // Set the score passed from StartPage or game logic
-        batch = new SpriteBatch();
-        stage = new Stage(new ScreenViewport());
-        Gdx.input.setInputProcessor(stage);
-
-        Skin skin = new Skin(Gdx.files.internal("/Users/dorukesen/Desktop/SB/CS320-Space-Blasters/assets/ui/uiskin.json"));
-        Table table = new Table();
-        table.setFillParent(true);
-        stage.addActor(table);
-
-        // Display the score
-        Label scoreLabel = new Label("Your Score: " + score, skin);
-        scoreLabel.setFontScale(1.5f);
-
-        // Button to go back to StartPage
-        TextButton restartButton = new TextButton("Play Again", skin);
-        restartButton.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                //game.setScreen((Screen) new StartPage(game));  // Return to StartPage when clicked
-            }
-        });
-
-        // If the score is in the top 3, ask for the player's name
-        if (isTopScore(score)) {
-            TextButton enterNameButton = new TextButton("Enter Name", skin);
-            enterNameButton.addListener(new ClickListener() {
-                @Override
-                public void clicked(InputEvent event, float x, float y) {
-                    // Logic for name entry goes here
-                    // Show a text input dialog or similar functionality
-                }
-            });
-            table.add(scoreLabel).padBottom(20).row();
-            table.add(enterNameButton).padBottom(20).row();
-        } else {
-            table.add(scoreLabel).padBottom(20).row();
-        }
-
-        table.add(restartButton).padBottom(10);
-    }
-
-
-    public void render(float delta) {
-        Gdx.gl.glClearColor(0, 0, 0, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        batch.begin();
-
-        stage.act(delta);
-        stage.draw();
+    public EndPage( int finalScore) {
+        this.finalScore = finalScore;  // Pass the score from the Core class to the EndPage
     }
 
     @Override
     public void create() {
         batch = new SpriteBatch();
-        stage = new Stage(new ScreenViewport());
+        font = new BitmapFont();  // Use the default font for text display
+        font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        font.getData().setScale(2.0f);  // Set text size for better visibility
+    }
+
+    @Override
+    public void render() {
+        // Clear the screen with a color (dark background)
+        Gdx.gl.glClearColor(0f, 0f, 0f, 1f);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        batch.begin();
+
+        // Draw the "Game Over" text in the center of the screen
+        font.draw(batch, "GAME OVER", Gdx.graphics.getWidth() / 2 - 100, Gdx.graphics.getHeight() / 2 + 50);
+
+        // Draw the score message just below the "Game Over" text
+        font.draw(batch, "Your Score: " + finalScore, Gdx.graphics.getWidth() / 2 - 100, Gdx.graphics.getHeight() / 2 - 50);
+
+        batch.end();
+
+        // Optionally, add functionality to restart or exit the game (e.g., clicking anywhere)
+        if (Gdx.input.isTouched()) {
+            // You can choose to go back to the main menu or quit when the screen is touched
+            // To quit the application, use Gdx.app.exit() or you can setScreen(new StartPage()) to go back to the main menu
+            Gdx.app.exit();
+        }
+    }
+
+
+    @Override
+    public void show() {
+
+    }
+
+    @Override
+    public void render(float delta) {
+
+    }
+
+    @Override
+    public void hide() {
 
     }
 
     @Override
     public void dispose() {
-        stage.dispose();
-        batch.dispose();
-    }
-
-    private boolean isTopScore(int score) {
-        // Logic to check if the score is in the top 3
-        return score >= 100;  // Placeholder logic, you should compare it with an actual score list
+        batch.dispose();  // Dispose of resources when done
+        font.dispose();
     }
 }
