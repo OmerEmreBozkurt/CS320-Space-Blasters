@@ -7,6 +7,7 @@ public class Medium_Alien extends Alien {
     }
 
     public int death(){
+        alive = false;
         return 100;
     }
 }

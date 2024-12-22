@@ -33,7 +33,7 @@ public class Alien {
         this.texture = texturePicker();
         this.sprite = new Sprite(texture);
         this.power_up = null;
-        this.sprite.setScale(2.0f);
+        this.sprite.setScale(3.4f);
         this.points = (type.ordinal()+1)*10;
     }
     public void Draw(SpriteBatch batch){

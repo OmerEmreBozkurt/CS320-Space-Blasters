@@ -12,8 +12,8 @@ public class Projectile {
     private Sprite sprite = new Sprite(new Texture("Ball.png"));
     private Game game;
     public float initialSpeed = 800;
-    private float speed = -initialSpeed;
-    private float speedY = 0;
+    private float speedY = -initialSpeed;
+    private float speedX = 0;
 
 
     public Projectile() {
@@ -22,11 +22,11 @@ public class Projectile {
     }
 
     public void Update(float deltaTime){
-        position.y += deltaTime*speed;
-        if (position.y >= Gdx.graphics.getHeight()){this.setSpeed(-initialSpeed);} // tavana çarparsa
-        position.x += speedY*deltaTime;
-        if (position.x <= 0){this.setSpeedY(-getSpeedY());} // sol duvara çarparsa
-        if (position.x >= Gdx.graphics.getWidth()){this.setSpeedY(-getSpeedY());} //Sağ duvara Çarparsa
+        position.y += deltaTime*speedY;
+        if (position.y >= Gdx.graphics.getHeight()){this.setSpeedY(-initialSpeed);} // tavana çarparsa
+        position.x += speedX*deltaTime;
+        if (position.x <= 0){this.setSpeedX(-getSpeedX());} // sol duvara çarparsa
+        if (position.x >= Gdx.graphics.getWidth()){this.setSpeedX(-getSpeedX());} //Sağ duvara Çarparsa
         if (position.y <= 0){ //Top düştüğünde
             game.decrementBallCount();
             position.x = Gdx.graphics.getWidth()/3;
@@ -41,19 +41,19 @@ public class Projectile {
         sprite.draw(batch);
     }
 
-    public void setSpeed(float speed) {
-        this.speed = speed;
+    public void setSpeedY(float speedY) {
+        this.speedY = speedY;
     }
 
     public Sprite getSprite() {
         return sprite;
     }
 
-    public void setSpeedY(float speedY) {
-        this.speedY = speedY;
+    public void setSpeedX(float speedX) {
+        this.speedX = speedX;
     }
 
-    public float getSpeedY() {
-        return speedY;
+    public float getSpeedX() {
+        return speedX;
     }
 }

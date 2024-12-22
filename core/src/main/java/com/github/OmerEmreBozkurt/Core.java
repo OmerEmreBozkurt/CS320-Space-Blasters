@@ -75,11 +75,8 @@ public class Core extends ApplicationAdapter {
         }
 
         if (platform.getSprite().getBoundingRectangle().overlaps(ball.getSprite().getBoundingRectangle())) {
-            System.out.println("ÇARPTI!!!!!");
-            ball.setSpeed(ball.initialSpeed);
-            float testFloat = rand.nextFloat(-300f,300f);
-            System.out.printf(String.valueOf(testFloat));
-            ball.setSpeedY(rand.nextFloat(-300f,300f));
+            ball.setSpeedY(ball.initialSpeed);
+            ball.setSpeedX(rand.nextFloat(-300f,300f));
         }
 
 

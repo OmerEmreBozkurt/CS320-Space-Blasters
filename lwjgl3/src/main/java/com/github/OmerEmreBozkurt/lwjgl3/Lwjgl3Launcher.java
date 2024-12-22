@@ -2,6 +2,7 @@ package com.github.OmerEmreBozkurt.lwjgl3;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 import com.github.OmerEmreBozkurt.Core;
+import com.github.OmerEmreBozkurt.EndPage;
 import com.github.OmerEmreBozkurt.StartPage;
 
 

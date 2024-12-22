@@ -7,6 +7,7 @@ public class ExtraHard_Alien extends Alien {
     }
 
     public int death(){
+        alive = false;
         return 200;
     }
 }
