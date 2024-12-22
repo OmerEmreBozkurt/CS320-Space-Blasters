@@ -3,12 +3,14 @@ package com.github.OmerEmreBozkurt;
 public class Game {
     private int score, ballCount, level;
     private Power_Up activePowerUp;
+    boolean running = false;
 
     public Game(){
         this.score = 0;
         this.ballCount = 3;
         this.activePowerUp = null;
         this.level = 1;
+        this.running = true;
     }
 
     public int getScore() {
@@ -33,6 +35,14 @@ public class Game {
             this.activePowerUp.deactivate();
             this.activePowerUp = null;
         }
+        if (ballCount < 0) {
+            endGame();
+        }
+    }
+
+    public void endGame() {
+        running = false;
+        //END GAME
     }
 
     public void incrementBallCount() {

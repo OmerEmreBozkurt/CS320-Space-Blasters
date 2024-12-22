@@ -25,18 +25,8 @@ public class Core extends ApplicationAdapter {
     private Music backgroundMusic;
 
     Random rand = new Random();
-    int minX_aliens;
-    int minY_aliens;
-    int maxX_aliens;
-    int maxY_aliens;
-    //offset to move aliens
-    Vector2 offset_aliens;
     int direction_aliens=1;
     float speed_aliens=0.5f;
-    int NumWidth_aliens=11;
-    int NumHeight_aliens=5;
-    int spacing_aliens=40;
-
 
     @Override
     public void create() {
@@ -53,9 +43,7 @@ public class Core extends ApplicationAdapter {
         backgroundMusic.setLooping(true); // Loop the music
         backgroundMusic.setVolume(0.5f); // Adjust volume (0.0 to 1.0)
         backgroundMusic.play();// Start playing the music
-        offset_aliens = Vector2.Zero;
     }
-
 
 
     @Override
@@ -67,7 +55,7 @@ public class Core extends ApplicationAdapter {
         ball.Draw(batch);
         for (int i = 0; i < aliens.length; i++) {
             if (aliens[i] != null && aliens[i].alive) {
-                if (ball.getSprite().getBoundingRectangle().overlaps(aliens[i].sprite.getBoundingRectangle())) {
+                if (ball.getSprite().getBoundingRectangle().overlaps(aliens[i].sprite.getBoundingRectangle())) {//TOP UZAYLIYA ÇARPARSA
                     if (!aliens[i].isTouched()) {
                         aliens[i].take_damage(); // Decrement life
                         aliens[i].setTouched(true); // Mark as touched
@@ -77,43 +65,26 @@ public class Core extends ApplicationAdapter {
                 }
             }
         }
-        minX_aliens = 100;
-        minY_aliens = 100;
-        maxX_aliens = 0;
-        maxY_aliens = 0;
-        System.out.println("aa");
-        for(int i=0;i<aliens.length;i++)
-        {
-            System.out.println("bb");
-            int IndexX = i%NumWidth_aliens;
-            int IndexY = i%NumHeight_aliens;
-            if(IndexX>maxX_aliens)maxX_aliens = IndexX;
-            if(IndexX<minX_aliens)minX_aliens = IndexX;
-            if(IndexY>maxY_aliens)maxY_aliens = IndexY;
-            if(IndexY<minY_aliens)minY_aliens = IndexY;
-
-        }
-        offset_aliens.x+=direction_aliens*deltaTime*speed_aliens;
-        if(aliens[maxX_aliens].position.x>=Gdx.graphics.getWidth())
-        {
-            direction_aliens = -1;
-        }
-        if(aliens[minX_aliens].position.x<=0)
-        {
-            direction_aliens = 1;
-        }
 
         for (int i = 0; i < aliens.length; i++) {
             if (aliens[i] != null && aliens[i].alive) {
-               // aliens[i].position = new Vector2(aliens[i].position_initial.x+offset_aliens.x,aliens[i].position_initial.y+offset_aliens.y);
-                aliens[i].position.x = aliens[i].position.x+offset_aliens.x;
-                aliens[i].position.y = aliens[i].position.y+offset_aliens.y;
+                aliens[i].position.x += speed_aliens*direction_aliens;
+                aliens[i].position.y -= 0.02f;
                 aliens[i].Draw(batch);
             }
         }
 
-        if (platform.getSprite().getBoundingRectangle().overlaps(ball.getSprite().getBoundingRectangle())) {
-            ball.setSpeedY(ball.initialSpeed);
+        if(aliens[5].position.x >= Gdx.graphics.getWidth() - aliens[5].sprite.getWidth()/2)
+        {
+            direction_aliens = -1;
+        }
+        if(aliens[0].position.x <= -(aliens[0].sprite.getWidth()/2))
+        {
+            direction_aliens = 1;
+        }
+
+        if (platform.getSprite().getBoundingRectangle().overlaps(ball.getSprite().getBoundingRectangle())) { //TOP PLAYFORMA ÇARPARSA
+            ball.setSpeedY(-(ball.initialSpeed));
             ball.setSpeedX(rand.nextFloat(-300f,300f));
         }
 
