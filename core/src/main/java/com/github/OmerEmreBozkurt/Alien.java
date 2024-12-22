@@ -40,7 +40,7 @@ public class Alien {
         this.type = type;
         this.texture = texturePicker();
         this.sprite = new Sprite(texture);
-        this.power_up = null;
+        this.power_up = Alien_Power_Up();
         this.sprite.setScale(3.4f);
         this.points = (type.ordinal()+1)*10;
         this.touched = false;
@@ -71,6 +71,8 @@ public class Alien {
         int damage = 1; // Default damage
         if (power_up != null && power_up.isActive() && power_up.getPowerUpType() == 2) {
             damage = 2; // double the damage
+            System.out.println("You took a head-shot! Took 2 lives");
+            power_up.deactivate();
         }
         life -= damage;
         sprite.setTexture(texturePicker());
@@ -83,7 +85,19 @@ public class Alien {
 
     public int death(){
         alive = false;
-        game.updateScore(points); // call game class update points with this.points()
+        if(power_up != null && power_up.isActive() && power_up.getPowerUpType() == 3){
+            game.updateScore(points*2); // Score Multiplier Power-Up
+            power_up.deactivate();
+            System.out.println("You are doubling your score!!");
+        } else{
+            game.updateScore(points);
+        }
+
+        if(power_up != null && power_up.isActive() && power_up.getPowerUpType() == 1){
+            game.incrementBallCount(); // Life Giver Power_Up
+            power_up.deactivate();
+            System.out.println("Lucky you!! You have an extra ball!");
+        }
         return 0;
     }
 
@@ -114,11 +128,8 @@ public class Alien {
                         break;
                 }
 
-                // Assign random power-up with a 50% chance
-                if (alien != null && rand.nextBoolean()) {
-                    Power_Up powerUp = new Power_Up(rand.nextInt(Power_Up.PowerUpType.values().length) + 1);
-                    alien.power_up = powerUp; // Initialize power-up
-                }
+                // Assign random power-up with a chance
+
 
                 if (alien != null) {
                     alien.setPosition(new Vector2(183 + 80 * x, 350 + 80 * y));
@@ -129,7 +140,17 @@ public class Alien {
         return aliens;
     }
 
-
+    public Power_Up Alien_Power_Up() {
+        Random rand = new Random();
+        if (rand.nextDouble() < 0.25) { // 25% chance to have a Power-Up
+            int randomPowerUpType = rand.nextInt(3) + 1; // Power-Up type 1, 2, or 3
+            Power_Up powerUp = new Power_Up(randomPowerUpType);
+            powerUp.activate();
+            return powerUp;
+        } else {
+            return null; // No power-up
+        }
+    }
 
     public boolean isTouched() {
         return touched;

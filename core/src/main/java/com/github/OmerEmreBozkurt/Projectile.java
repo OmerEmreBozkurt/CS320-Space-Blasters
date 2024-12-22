@@ -25,7 +25,7 @@ public class Projectile {
     public Projectile(Game game) {
         this.game = game;
         sprite.setScale(2);
-        this.position = new Vector2(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/9);
+        this.position = new Vector2(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/7);
         deathSound = deathSound = Gdx.audio.newSound(Gdx.files.internal("BallFall.mp3"));;
     }
 
