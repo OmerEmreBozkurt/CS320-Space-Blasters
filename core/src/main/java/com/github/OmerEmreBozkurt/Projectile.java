@@ -2,10 +2,13 @@ package com.github.OmerEmreBozkurt;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.audio.Sound;
+
 
 public class Projectile {
     private Vector2 position;
@@ -14,6 +17,8 @@ public class Projectile {
     public float initialSpeed = 800;
     private float speedY = -initialSpeed;
     private float speedX = 0;
+    private Sound deathSound;
+
 
 
 
@@ -21,6 +26,7 @@ public class Projectile {
         this.game = game;
         sprite.setScale(2);
         this.position = new Vector2(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/3);
+        deathSound = deathSound = Gdx.audio.newSound(Gdx.files.internal("BallFall.mp3"));;
     }
 
     public void Update(float deltaTime){
@@ -30,6 +36,7 @@ public class Projectile {
         if (position.x <= 0){this.setSpeedX(-getSpeedX());} // sol duvara çarparsa
         if (position.x >= Gdx.graphics.getWidth()){this.setSpeedX(-getSpeedX());} //Sağ duvara Çarparsa
         if (position.y <= 0){ //Top düştüğünde
+            deathSound.play();
             game.decrementBallCount();
             position.x = Gdx.graphics.getWidth()/3;
             position.y = Gdx.graphics.getHeight();
