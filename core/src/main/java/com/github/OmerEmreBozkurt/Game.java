@@ -2,6 +2,7 @@ package com.github.OmerEmreBozkurt;
 
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class Game {
     private int score, ballCount, level;
@@ -14,6 +15,10 @@ public class Game {
         this.activePowerUp = null;
         this.level = 1;
         this.running = true;
+    }
+
+    public void Update(float deltaTime){
+
     }
 
     public int getScore() {

@@ -11,31 +11,18 @@ public class Alien {
 
     enum AlienType{Easy,Medium,Hard,ExtraHard}
 
-    public void setPosition(Vector2 position) {
-        this.position = position;
-    }
-
     public Vector2 position;
+
     public Vector2 position_initial;
     public Sprite sprite;
     int life;
     Game game;
     private boolean touched;
-
-    public int getPoints() {
-        return points;
-    }
-
     int points;
     public boolean alive = true;
     AlienType type;
     Power_Up power_up;
     Texture texture;
-
-    public Alien(){
-        this.power_up = null;
-    }
-
     public Alien(AlienType type, Game game) {
         this.type = type;
         this.texture = texturePicker();
@@ -64,7 +51,7 @@ public class Alien {
         } else if (power_up.getPowerUpType() == 3) {
             return new Texture("BaseAlien-PowerUp3.png");
         }
-        return new Texture("libgdx.png");
+        return new Texture("BaseAlien.png");
     }
 
     public void take_damage(){
@@ -162,5 +149,13 @@ public class Alien {
 
     public void resetTouched() {
         this.touched = false;
+    }
+
+    public void setPosition(Vector2 position) {
+        this.position = position;
+    }
+
+    public int getPoints() {
+        return points;
     }
 }
