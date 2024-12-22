@@ -32,7 +32,7 @@ public class Core extends ApplicationAdapter {
     //offset to move aliens
     Vector2 offset_aliens;
     int direction_aliens=1;
-    float speed_aliens=300;
+    float speed_aliens=0.5f;
     int NumWidth_aliens=11;
     int NumHeight_aliens=5;
     int spacing_aliens=40;
@@ -52,7 +52,8 @@ public class Core extends ApplicationAdapter {
         backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("thememusic.mp3"));
         backgroundMusic.setLooping(true); // Loop the music
         backgroundMusic.setVolume(0.5f); // Adjust volume (0.0 to 1.0)
-        backgroundMusic.play(); // Start playing the music
+        backgroundMusic.play();// Start playing the music
+        offset_aliens = Vector2.Zero;
     }
 
 
@@ -76,8 +77,8 @@ public class Core extends ApplicationAdapter {
                 }
             }
         }
-        minX_aliens = 10000;
-        minY_aliens = 10000;
+        minX_aliens = 100;
+        minY_aliens = 100;
         maxX_aliens = 0;
         maxY_aliens = 0;
         System.out.println("aa");
@@ -93,10 +94,20 @@ public class Core extends ApplicationAdapter {
 
         }
         offset_aliens.x+=direction_aliens*deltaTime*speed_aliens;
+        if(aliens[maxX_aliens].position.x>=Gdx.graphics.getWidth())
+        {
+            direction_aliens = -1;
+        }
+        if(aliens[minX_aliens].position.x<=0)
+        {
+            direction_aliens = 1;
+        }
 
         for (int i = 0; i < aliens.length; i++) {
             if (aliens[i] != null && aliens[i].alive) {
-                aliens[i].position = new Vector2(aliens[i].position_initial.x+offset_aliens.x,aliens[i].position_initial.y+offset_aliens.y);
+               // aliens[i].position = new Vector2(aliens[i].position_initial.x+offset_aliens.x,aliens[i].position_initial.y+offset_aliens.y);
+                aliens[i].position.x = aliens[i].position.x+offset_aliens.x;
+                aliens[i].position.y = aliens[i].position.y+offset_aliens.y;
                 aliens[i].Draw(batch);
             }
         }
