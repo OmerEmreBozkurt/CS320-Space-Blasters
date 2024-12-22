@@ -7,72 +7,132 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 
-
-public class EndPage extends Game implements Screen  {
+public class EndPage extends Game implements Screen {
     private SpriteBatch batch;
     private BitmapFont font;
     private int finalScore;
 
-    public EndPage( int finalScore) {
-        this.finalScore = finalScore;
-    // Pass the score from the Core class to the EndPage
-    }
+    private Stage stage;
+    private Skin skin;
 
+    private String selectedChars = "";
+    private String[] availableChars;
+
+    private Label selectionLabel;
+
+    public EndPage(int finalScore) {
+        this.finalScore = finalScore;
+    }
 
     @Override
     public void create() {
         batch = new SpriteBatch();
-        font = new BitmapFont();  // Use the default font for text display
+        font = new BitmapFont();
         font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        font.getData().setScale(2.0f);  // Set text size for better visibility
+        font.getData().setScale(2.0f);
 
+        stage = new Stage();
+        Gdx.input.setInputProcessor(stage);
 
+        skin = new Skin(Gdx.files.internal("assets/ui/uiskin.json")); // UI skin dosyası gerekli
+
+        Table table = new Table();
+        table.setFillParent(true);
+        stage.addActor(table);
+
+        // Başlık ve skor
+        Label titleLabel = new Label("GAME OVER", skin);
+        titleLabel.setFontScale(2);
+        table.add(titleLabel).colspan(7).padBottom(20).row();
+
+        Label scoreLabel = new Label("Your Score: " + finalScore, skin);
+        scoreLabel.setFontScale(1.5f);
+        table.add(scoreLabel).colspan(7).padBottom(20).row();
+
+        // Alfabe Seçenekleri (A-Z)
+        availableChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+        int columnCounter = 0;
+
+        for (String character : availableChars) {
+            TextButton charButton = new TextButton(character, skin);
+            table.add(charButton).pad(5);
+
+            charButton.addListener(new ChangeListener() {
+                @Override
+                public void changed(ChangeEvent event, Actor actor) {
+                    if (selectedChars.length() < 3) {
+                        selectedChars += character;
+                        selectionLabel.setText("Selected: " + selectedChars);
+                    }
+                }
+            });
+
+            columnCounter++;
+            if (columnCounter % 7 == 0) { // Her 7 butonda bir satır atla
+                table.row();
+            }
+        }
+
+        table.row();
+
+        // Seçim Gösterimi
+        selectionLabel = new Label("Selected: ", skin);
+        selectionLabel.setFontScale(1.5f);
+        table.add(selectionLabel).colspan(7).padTop(20).row();
+
+        // Onay Butonu
+        TextButton confirmButton = new TextButton("Confirm", skin);
+        table.add(confirmButton).colspan(7).padTop(20);
+        confirmButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                if (selectedChars.length() == 3) {
+                    System.out.println("Selected Characters: " + selectedChars);
+                    com.github.OmerEmreBozkurt.Game.saveScore(selectedChars, finalScore);
+                    Gdx.app.exit(); // Programı kapat ya da başka bir sayfaya geç
+                }
+            }
+        });
     }
 
     @Override
     public void render() {
-        // Clear the screen with a color (dark background)
-        Gdx.gl.glClearColor(0f, 0f, 0f, 1f);
+        Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        batch.begin();
-
-        // Draw the "Game Over" text in the center of the screen
-        font.draw(batch, "GAME OVER", Gdx.graphics.getWidth() / 2 - 100, Gdx.graphics.getHeight() / 2 + 50);
-
-        // Draw the score message just below the "Game Over" text
-        font.draw(batch, "Your Score: " + finalScore, Gdx.graphics.getWidth() / 2 - 100, Gdx.graphics.getHeight() / 2 - 50);
-
-        batch.end();
-
-        // Optionally, add functionality to restart or exit the game (e.g., clicking anywhere)
-        if (Gdx.input.isTouched()) {
-            // You can choose to go back to the main menu or quit when the screen is touched
-            // To quit the application, use Gdx.app.exit() or you can setScreen(new StartPage()) to go back to the main menu
-            Gdx.app.exit();
-        }
-    }
-
-
-    @Override
-    public void show() {
-
+        stage.act(Gdx.graphics.getDeltaTime());
+        stage.draw();
     }
 
     @Override
     public void render(float delta) {
-
+        render();
     }
 
     @Override
-    public void hide() {
-
+    public void resize(int width, int height) {
+        stage.getViewport().update(width, height, true);
     }
+
+    @Override
+    public void show() {}
+
+    @Override
+    public void hide() {}
 
     @Override
     public void dispose() {
-        batch.dispose();  // Dispose of resources when done
+        batch.dispose();
         font.dispose();
+        stage.dispose();
+        skin.dispose();
     }
 }
