@@ -32,7 +32,7 @@ public class Game {
         if (this.activePowerUp != null) {
             this.activePowerUp.deactivate();
             this.activePowerUp = null;
-        };
+        }
     }
 
     public void incrementBallCount() {

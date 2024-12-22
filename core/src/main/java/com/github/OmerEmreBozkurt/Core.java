@@ -28,7 +28,7 @@ public class Core extends ApplicationAdapter {
         game = new Game();
         batch = new SpriteBatch();
         platform = new Platform();
-        ball = new Projectile();
+        ball = new Projectile(game);
         font = new BitmapFont();
         font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         font.getData().setScale(2.0F);

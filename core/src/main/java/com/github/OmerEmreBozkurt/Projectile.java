@@ -16,7 +16,8 @@ public class Projectile {
     private float speedX = 0;
 
 
-    public Projectile() {
+    public Projectile(Game game) {
+        this.game = game;
         sprite.setScale(2);
         this.position = new Vector2(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/3);
     }
