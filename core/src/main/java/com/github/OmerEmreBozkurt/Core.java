@@ -78,6 +78,10 @@ public class Core extends ApplicationAdapter implements Screen {
                 } else {
                     aliens[i].resetTouched(); // Reset touched when ball leaves
                 }
+
+                if ((aliens[i].alive && aliens[i].position.y <= 0) || aliens[i].alive && aliens[i].sprite.getBoundingRectangle().overlaps(platform.getSprite().getBoundingRectangle())) { //uzaylılar yere ya da platforma değdiğinde
+                    game.endGame();
+                }
             }
         }
 

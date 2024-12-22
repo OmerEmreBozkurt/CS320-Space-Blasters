@@ -92,29 +92,33 @@ public class Alien {
         Random rand = new Random();
         int i = 0;
         Alien[] aliens = new Alien[num_height_aliens * num_width_aliens];
+        int level = game.getLevel();
+
 
         for (int y = 0; y < num_height_aliens; y++) {
             for (int x = 0; x < num_width_aliens; x++) {
-                int randomInt = rand.nextInt(Alien.AlienType.values().length);
-                Alien.AlienType randomType = Alien.AlienType.values()[randomInt];
+
+                Random random = new Random();
+
+                // Level'e bağlı olarak olasılık dağılımı
+                int easyWeight = Math.max(20 - level, 1);   // Seviye arttıkça düşer, min 1
+                int mediumWeight = Math.max(10 - level, 1); // Seviye arttıkça düşer, min 1
+                int hardWeight = 1 + level*2;                // Seviye arttıkça artar
+                int extraHardWeight = 1 + level;     // Seviye arttıkça artar ama daha yavaş
+
+                int totalWeight = easyWeight + mediumWeight + hardWeight + extraHardWeight;
+                int randomValue = random.nextInt(totalWeight);
+
                 Alien alien = null;
-
-                // Instantiate aliens
-                switch (randomType) {
-                    case Easy:
-                        alien = new Easy_Alien(game);
-                        break;
-                    case Medium:
-                        alien = new Medium_Alien(game);
-                        break;
-                    case Hard:
-                        alien = new Hard_Alien(game);
-                        break;
-                    case ExtraHard:
-                        alien = new ExtraHard_Alien(game);
-                        break;
+                if (randomValue < easyWeight) {
+                    alien = new Easy_Alien(game);
+                } else if (randomValue < easyWeight + mediumWeight) {
+                    alien = new Medium_Alien(game);
+                } else if (randomValue < easyWeight + mediumWeight + hardWeight) {
+                    alien = new Hard_Alien(game);
+                } else if (randomValue < easyWeight + mediumWeight + hardWeight + extraHardWeight) {
+                    alien = new ExtraHard_Alien(game);
                 }
-
                 // Assign random power-up with a chance
 
 

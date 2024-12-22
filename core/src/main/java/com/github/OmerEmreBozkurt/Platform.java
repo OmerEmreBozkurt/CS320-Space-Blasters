@@ -14,7 +14,7 @@ public class Platform {
 
 
     public Platform(){
-        sprite.setScale(8);
+        sprite.setScale(4);
         position = new Vector2(Gdx.graphics.getWidth()/2, sprite.getScaleY()*sprite.getHeight()/2 + 5);
     }
 
@@ -22,8 +22,8 @@ public class Platform {
         if (Gdx.input.isKeyPressed(Input.Keys.A)) position.x -= deltaTime*speed;
         if (Gdx.input.isKeyPressed(Input.Keys.D)) position.x += deltaTime*speed;
 
-        if (position.x - (sprite.getWidth()*sprite.getScaleX()/2) <= 0) position.x = (sprite.getWidth()*sprite.getScaleX()/2);
-        if (position.x + (sprite.getWidth()*sprite.getScaleX()/2) >= Gdx.graphics.getWidth()) position.x = Gdx.graphics.getWidth() - (sprite.getWidth()*sprite.getScaleX()/2);
+        if (position.x - (sprite.getWidth()*2 - 20) <= 0) position.x = (sprite.getWidth()*2 - 20);
+        if (position.x + (sprite.getWidth()*2) >= Gdx.graphics.getWidth() - 10) position.x = Gdx.graphics.getWidth() - sprite.getWidth()*2 - 10;
     }
 
     public void Draw(SpriteBatch batch){
