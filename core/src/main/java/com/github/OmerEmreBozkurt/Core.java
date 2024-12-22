@@ -113,6 +113,7 @@ public class Core extends ApplicationAdapter implements Screen {
 
         font.draw(batch, "Score: " + game.getScore(), 10, Gdx.graphics.getHeight() - 10);
         font.draw(batch, "Balls: " + game.getBallCount(), 10, Gdx.graphics.getHeight() - 40);
+        font.draw(batch, "Level: " + game.getLevel(), 10, Gdx.graphics.getHeight() - 70);
         batch.end();
 
     }

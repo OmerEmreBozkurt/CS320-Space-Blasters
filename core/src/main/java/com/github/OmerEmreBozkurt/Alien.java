@@ -133,7 +133,7 @@ public class Alien {
 
     public Power_Up Alien_Power_Up() {
         Random rand = new Random();
-        if (rand.nextDouble() < 0.25) { // 25% chance to have a Power-Up
+        if (rand.nextDouble() < 0.15) { // 25% chance to have a Power-Up
             int randomPowerUpType = rand.nextInt(3) + 1; // Power-Up type 1, 2, or 3
             Power_Up powerUp = new Power_Up(randomPowerUpType);
             powerUp.activate();
