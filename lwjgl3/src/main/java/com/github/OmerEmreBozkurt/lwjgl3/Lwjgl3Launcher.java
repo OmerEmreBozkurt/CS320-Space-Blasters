@@ -16,6 +16,8 @@ public class Lwjgl3Launcher {
         endScreen();
 
 
+
+
     }
     private static Lwjgl3Application createApplication() {
         return new Lwjgl3Application(new StartPage(), getDefaultConfiguration());
@@ -26,6 +28,7 @@ public class Lwjgl3Launcher {
     private static Lwjgl3Application endScreen() {
         return new Lwjgl3Application(new EndPage(Core.getGame().getScore()), getDefaultConfiguration());
     }
+
 
 
     public static Lwjgl3ApplicationConfiguration getDefaultConfiguration() {

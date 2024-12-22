@@ -15,8 +15,10 @@ public class EndPage extends Game implements Screen  {
     private int finalScore;
 
     public EndPage( int finalScore) {
-        this.finalScore = finalScore;  // Pass the score from the Core class to the EndPage
+        this.finalScore = finalScore;
+    // Pass the score from the Core class to the EndPage
     }
+
 
     @Override
     public void create() {
@@ -24,6 +26,8 @@ public class EndPage extends Game implements Screen  {
         font = new BitmapFont();  // Use the default font for text display
         font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         font.getData().setScale(2.0f);  // Set text size for better visibility
+
+
     }
 
     @Override

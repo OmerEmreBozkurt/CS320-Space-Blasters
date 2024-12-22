@@ -2,9 +2,8 @@ package com.github.OmerEmreBozkurt;
 
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-public class Game {
+public class Game  {
     private int score, ballCount, level;
     private Power_Up activePowerUp;
     boolean running = false;
@@ -16,6 +15,16 @@ public class Game {
         this.level = 1;
         this.running = true;
     }
+
+//    public int getTopScore() {return topScore;}
+//
+//    public void setTopScore(int newScore) {
+//    if (newScore > topScore) {
+//        topScore = newScore;
+//    }
+//    }
+
+
 
     public void Update(float deltaTime){
 
