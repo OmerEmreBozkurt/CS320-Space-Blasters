@@ -108,6 +108,8 @@ public class Core extends ApplicationAdapter implements Screen {
         if (platform.getSprite().getBoundingRectangle().overlaps(ball.getSprite().getBoundingRectangle())) { //TOP PLAYFORMA ÇARPARSA
             ball.setSpeedY(-(ball.initialSpeed));
             ball.setSpeedX(rand.nextFloat(-300f,300f));
+            thudSound.stop();
+            thudSound.play();
         }
 
 

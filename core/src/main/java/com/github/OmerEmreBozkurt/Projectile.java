@@ -23,7 +23,10 @@ public class Projectile {
     private Music thudSound;
 
 
-
+    private void restartSound(Sound sound) {
+        sound.stop(); // Stops any currently playing instance of the sound
+        sound.play(); // Starts playing the sound again
+    }
 
     public Projectile(Game game) {
         this.game = game;
@@ -37,11 +40,14 @@ public class Projectile {
     public void Update(float deltaTime){
         position.y += deltaTime*speedY;
         if (position.y >= Gdx.graphics.getHeight()){this.setSpeedY(initialSpeed);} // tavana çarparsa
+        thudSound.stop();
         thudSound.play();
         position.x += speedX*deltaTime;
         if (position.x <= sprite.getWidth()/2){this.setSpeedX(-getSpeedX());} // sol duvara çarparsa
+        thudSound.stop();
         thudSound.play();
         if (position.x >= Gdx.graphics.getWidth() - sprite.getWidth() - 10){this.setSpeedX(-getSpeedX());} //Sağ duvara Çarparsa
+        thudSound.stop();
         thudSound.play();
         if (position.y <= 0){ //Top düştüğünde
             deathSound.play((float) 0.1);
