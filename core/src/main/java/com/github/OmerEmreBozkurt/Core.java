@@ -107,7 +107,12 @@ public class Core extends ApplicationAdapter implements Screen {
 
         if (platform.getSprite().getBoundingRectangle().overlaps(ball.getSprite().getBoundingRectangle())) { //TOP PLAYFORMA ÇARPARSA
             ball.setSpeedY(-(ball.initialSpeed));
-            ball.setSpeedX(rand.nextFloat(-300f,300f));
+            //ball.setSpeedX(rand.nextFloat(-300f,300f));
+            if (platform.getX() - ball.getX() > 0 ) {
+                ball.setSpeedX((float) ((platform.getX() - ball.getX()) * rand.nextFloat(0f, 5f)));
+            } else {
+                ball.setSpeedX((float) ((platform.getX() - ball.getX()) * rand.nextFloat(-5f, 0f)));
+            } //sadece sağa sekiyo çünkü plat sprite 0dan başlıyo
             thudSound.stop();
             thudSound.play();
         }

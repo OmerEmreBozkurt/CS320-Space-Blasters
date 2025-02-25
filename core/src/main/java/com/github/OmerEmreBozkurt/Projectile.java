@@ -85,4 +85,7 @@ public class Projectile {
     public float getSpeedX() {
         return speedX;
     }
+
+    public double getX(){return position.x;}
+
 }
